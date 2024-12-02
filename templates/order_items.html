@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Items</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Order Items</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Product ID</th>
+                <th>Quantity</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order_item in order_items %}
+                <tr>
+                    <td>{{ order_item['order_items'].order_id }}</td>
+                    <td>{{ order_item['order_items'].product_id }}</td>
+                    <td>{{ order_item['order_items'].quantity }}</td>
+                    <td>
+                        <a href="{{ url_for('update', collection='order_items', key=order_item['order_items'].key) }}">Update</a> |
+                        <a href="{{ url_for('delete', collection='order_items', key=order_item['order_items'].key) }}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="actions">
+        <a href="{{ url_for('create', collection='order_items') }}">Create Order Item</a>
+        <a href="{{ url_for('index') }}">Back to Home</a>
+    </div>
+    <div class="pagination">
+        {% for i in range(1, total_pages + 1) %}
+            <a href="{{ url_for('order_items_index', page=i, per_page=per_page) }}">{{ i }}</a>
+        {% endfor %}
+    </div>
+</body>
+</html>
