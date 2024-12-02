@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Users</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user['users'].name }}</td>
+                    <td>{{ user['users'].email }}</td>
+                    <td>
+                        <a href="{{ url_for('update', collection='users', key=user['users'].key) }}">Update</a> |
+                        <a href="{{ url_for('delete', collection='users', key=user['users'].key) }}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="actions">
+        <a href="{{ url_for('create', collection='users') }}">Create User</a>
+        <a href="{{ url_for('index') }}">Back to Home</a>
+    </div>
+    <div class="pagination">
+        {% for i in range(1, total_pages + 1) %}
+            <a href="{{ url_for('users_index', page=i, per_page=per_page) }}">{{ i }}</a>
+        {% endfor %}
+    </div>
+</body>
+</html>
