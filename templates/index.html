@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Welcome to Our Application</h1>
+    <p>This is a simple application to manage users, orders, products, categories, and order items.</p>
+    <ul class="menu">
+        <li><a href="{{ url_for('users_index') }}">Users</a></li>
+        <li><a href="{{ url_for('orders_index') }}">Orders</a></li>
+        <li><a href="{{ url_for('products_index') }}">Products</a></li>
+        <li><a href="{{ url_for('categories_index') }}">Categories</a></li>
+        <li><a href="{{ url_for('order_items_index') }}">Order Items</a></li>
+    </ul>
+
+    <div>
+        <h2>Query the Database</h2>
+        <form method="POST" action="{{ url_for('index') }}">
+            <label for="query">Enter your query:</label>
+            <textarea id="query" name="query" rows="4" cols="50"></textarea>
+            <button type="submit">Execute Query</button>
+        </form>
+    </div>
+
+    <div>
+        <h2>Query Result</h2>
+        <pre>{{ query }}</pre>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Key</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                <tr>
+                    {% for key, value in row.items() %}
+                    <td>{{ key }}</td>
+                    <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
