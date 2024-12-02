@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Orders</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>User ID</th>
+                <th>Order Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td>{{ order['orders'].key }}</td>
+                    <td>{{ order['orders'].user_id }}</td>
+                    <td>{{ order['orders'].order_date }}</td>
+                    <td>
+                        <a href="{{ url_for('update', collection='orders', key=order['orders'].key) }}">Update</a> |
+                        <a href="{{ url_for('delete', collection='orders', key=order['orders'].key) }}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="actions">
+        <a href="{{ url_for('create', collection='orders') }}">Create Order</a>
+        <a href="{{ url_for('index') }}">Back to Home</a>
+    </div>
+    <div class="pagination">
+        {% for i in range(1, total_pages + 1) %}
+            <a href="{{ url_for('orders_index', page=i, per_page=per_page) }}">{{ i }}</a>
+        {% endfor %}
+    </div>
+</body>
+</html>
