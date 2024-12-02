@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Order Item</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Update Order Item</h1>
+    <form method="POST">
+        <label for="order_id">Order ID:</label>
+        <input type="text" id="order_id" name="order_id" value="{{ record.order_id }}" required><br>
+        <label for="product_id">Product ID:</label>
+        <input type="text" id="product_id" name="product_id" value="{{ record.product_id }}" required><br>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" value="{{ record.quantity }}" required><br>
+        <button type="submit">Update</button>
+    </form>
+</body>
+</html>
