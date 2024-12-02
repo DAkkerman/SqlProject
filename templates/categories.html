@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Categories</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Categories</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+                <tr>
+                    <td>{{ category['categories'].name }}</td>
+                    <td>
+                        <a href="{{ url_for('update', collection='categories', key=category['categories'].key) }}">Update</a> |
+                        <a href="{{ url_for('delete', collection='categories', key=category['categories'].key) }}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="actions">
+        <a href="{{ url_for('create', collection='categories') }}">Create Category</a>
+        <a href="{{ url_for('index') }}">Back to Home</a>
+    </div>
+    <div class="pagination">
+        {% for i in range(1, total_pages + 1) %}
+            <a href="{{ url_for('categories_index', page=i, per_page=per_page) }}">{{ i }}</a>
+        {% endfor %}
+    </div>
+</body>
+</html>
